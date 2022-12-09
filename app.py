@@ -30,9 +30,11 @@ def register():
             flash('Passwords do not match!', 'danger')
             return render_template('register.html')
 
-		#if len(userDetails['studentID']) != 7:
-		#	flash('Student ID is not a registered studentID', 'danger')
-		#	return render_template('register.html')
+		# Check if StudentID is correct
+        if len(userDetails['studentID']) != 7:
+            flash('StudentID needs to be a 7 digit number!', 'danger')
+            return render_template('register.html')
+
 
         p1 = userDetails['firstName']
         p2 = userDetails['lastName']
