@@ -30,6 +30,11 @@ def register():
             flash('Passwords do not match!', 'danger')
             return render_template('register.html')
 
+		# Check if StudentID is numeric
+        if str(userDetails['studentID']).isnumeric() == False:
+            flash('StudentID should be a number!', 'danger')
+            return render_template('register.html')
+
 		# Check if StudentID is correct
         if len(userDetails['studentID']) != 7:
             flash('StudentID needs to be a 7 digit number!', 'danger')
@@ -59,6 +64,40 @@ def register():
         flash("Form Submitted Successfully.", "success")
         return redirect('/')    
     return render_template('register.html')
+
+@app.route('/login/', methods=['GET', 'POST'])
+def login():
+    if request.method == 'GET':
+        return render_template('login.html')
+    elif request.method == 'POST':
+        loginForm = request.form
+        studentID = loginForm['studentID']
+        cur = mysql.connection.cursor()
+        queryStatement = f"SELECT * FROM users WHERE studentID = '{studentID}'"
+        numRow = cur.execute(queryStatement)
+        if numRow > 0:
+            user =  cur.fetchone()
+            if check_password_hash(user['password'], loginForm['password']):
+                
+                #Recording Session Information
+                session['login'] = True
+                session['studentID'] = str(user['studentID'])
+                session['adminID'] = str(user['admin_role'])
+                session['firstName'] = user['f_name']
+                session['lastName'] = user['l_name']
+                print(session['studentID'] + " adminID: " + session['adminID'])
+                flash('Welcome ' + session['firstName'],'success')
+                return redirect('/')
+            else:
+                cur.close()
+                flash("Password doesn't not match", 'danger')
+        else:
+            cur.close()
+            flash('User not found', 'danger')
+            return render_template('login.html')
+        cur.close()
+        return redirect('/')
+    return render_template('login.html')
 
 if __name__ == '__main__':
 	app.run(debug=True)
