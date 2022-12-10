@@ -163,5 +163,11 @@ def filter_bike_type(bike_type):
 def filter_bike_status(bike_status):
     pass
 
+@app.route('/logout')
+def logout():
+    session.clear()
+    flash("You have been logged out", 'info')
+    return redirect('/')
+
 if __name__ == '__main__':
 	app.run(debug=True)
