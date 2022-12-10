@@ -112,5 +112,40 @@ def login():
         return redirect('/')
     return render_template('login.html')
 
+# Delete a certain bike from the database
+@app.route('/delete-bicycle/<int:id>/', methods=['POST'])
+def delete_bike(id):
+    pass
+
+# List all bicycles
+@app.route('/bicycles/', methods=['POST'])
+def all_bikes(id):
+    pass
+
+# List bicycles that belong to a certain building
+@app.route('/bicycles/<int:id>/', methods=['POST'])
+def all_bikes_by_building(id):
+    pass
+
+# Approve bicycle rent
+@app.route('/bicycles/<int:id>/', methods=['POST'])
+def approve_bike_rent(id):
+    pass
+
+# Approve bicycle return
+@app.route('/bicycles/<int:id>/', methods=['POST'])
+def approve_bike_return(id):
+    pass
+
+# Filter bicycles by their type
+@app.route('/bicycles/', methods=['POST'])
+def filter_bike_type(bike_type):
+    pass
+
+# Filter bicycles by their status
+@app.route('/bicycles/', methods=['POST'])
+def filter_bike_status(bike_status):
+    pass
+
 if __name__ == '__main__':
 	app.run(debug=True)
