@@ -18,6 +18,19 @@ mysql = MySQL(app)
 def index():
 	return render_template("index.html")
 
+@app.route('/renting/')
+def renting():
+    try:
+        username = session['studentID']
+        isAdmin = session['adminID']
+        if isAdmin != '0':
+            flash('Only students are allowed to rent bicycles', 'danger')
+            return redirect("/")
+    except:
+        flash('Please log in first', 'danger')
+        return redirect('/login')
+    return render_template('renting.html')
+
 @app.route('/register/', methods=['GET', 'POST'])
 def register():
     if request.method == 'GET':
