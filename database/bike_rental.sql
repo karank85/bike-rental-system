@@ -28,18 +28,16 @@ DROP TABLE IF EXISTS bike_status;
 
 create table bike_status
 (
-	state_id int auto_increment NOT NULL,
-    bike_state	varchar(50) NOT NULL UNIQUE DEFAULT 'Available',
-    primary key (state_id)
+    bike_state	varchar(50) NOT NULL UNIQUE,
+    primary key (bike_state)
 );
 
 DROP TABLE IF EXISTS bike_type;
 
 create table bike_type
 (
-	type_id int auto_increment NOT NULL,
     bike_types	varchar(20) NOT NULL UNIQUE,
-    primary key (type_id)
+    primary key (bike_types)
 );
 
 DROP TABLE IF EXISTS bicycle;
@@ -48,7 +46,7 @@ create table bicycle
 (
     bike_id       int auto_increment NOT NULL,
     bike_types     varchar(20),
-    bike_state	  varchar(20) DEFAULT 'Available',
+    bike_state	  varchar(50) DEFAULT 'Available',
     phone_num     varchar(30),
     rating		  int,
     studentID		 int(7),
@@ -56,8 +54,7 @@ create table bicycle
     primary key (bike_id),
     constraint fk_type
 		foreign key (bike_types)
-        REFERENCES bike_type(bike_types)
-		ON DELETE SET NULL,
+        REFERENCES bike_type(bike_types),
     constraint fk_state
 		foreign key (bike_state)
         REFERENCES bike_status(bike_state)
