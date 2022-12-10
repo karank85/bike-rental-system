@@ -39,6 +39,17 @@ def renting():
     cur.close()
     return render_template('renting.html', bicycles=None)
 
+@app.route('/renting/bicycles/<int:id>/')
+def bicycle(id):
+    cur = mysql.connection.cursor()
+    queryStatement = f"SELECT * from bicycle WHERE bike_id = {id}"
+    print(queryStatement)
+    resultValue = cur.execute(queryStatement)
+    if resultValue > 0:
+        bicycle = cur.fetchone()
+        return render_template('bicycle.html', bicycle=bicycle)
+    return 'Cycle not found'
+
 @app.route('/register/', methods=['GET', 'POST'])
 def register():
     if request.method == 'GET':
