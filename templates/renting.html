@@ -3,13 +3,29 @@
 <div class="display-2">
 All cycles
 </div>
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Bike No.</th>
+        <th scope="col">Type of Bike</th>
+        <th scope="col">Bike State</th>
+        <th scope="col">Building</th>
+        <th scope="col">Rent</th>
+      </tr>
+    </thead>
     {% if bicycles %}
         {% for bicycle in bicycles %}
-            <div class="shadow p-3 mb-5 bg-light rounded" style="margin: 20px 40px 0px 40px;">
-                <a href="bicycles/{{ bicycle['bike_id'] }}">{{ bicycle['bike_type'] }}</a>
-                Status: {{ bicycle['bike_state'] }}
-            </div>
+            <tbody>
+              <tr>
+                <th scope="row">{{ bicycle['bike_id'] }}</th>
+                <td>{{ bicycle['bike_types'] }}</td>
+                <td>{{ bicycle['bike_state'] }}</td>
+                <td>{{ bicycle['building_name'] }}</td>
+                <td><a href="bicycles/{{ bicycle['bike_id'] }}">Click here to rent!</td></a>
+              </tr>
+            </tbody>
         {% endfor %}
+    </table>
     {% else %}
         <div class="displya-3">No Bicycle</div>
     {% endif %}
