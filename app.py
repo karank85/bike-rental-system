@@ -29,7 +29,15 @@ def renting():
     except:
         flash('Please log in first', 'danger')
         return redirect('/login')
-    return render_template('renting.html')
+    cur = mysql.connection.cursor()
+    resultValue =  cur.execute("SELECT * FROM bicycle")
+    print(resultValue)
+    if resultValue > 0:
+        bicycles = cur.fetchall()
+        cur.close()
+        return render_template('renting.html', bicycles=bicycles)
+    cur.close()
+    return render_template('renting.html', bicycles=None)
 
 @app.route('/register/', methods=['GET', 'POST'])
 def register():

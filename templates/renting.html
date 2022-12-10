@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="display-2">
+All cycles
+</div>
+    {% if bicycles %}
+        {% for bicycle in bicycles %}
+            <div class="shadow p-3 mb-5 bg-light rounded" style="margin: 20px 40px 0px 40px;">
+                <a href="bicycles/{{ bicycle['bike_id'] }}">{{ bicycle['bike_type'] }}</a>
+                Status: {{ bicycle['bike_state'] }}
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="displya-3">No Bicycle</div>
+    {% endif %}
+
+{% endblock %}
