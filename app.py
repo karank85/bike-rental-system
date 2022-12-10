@@ -127,7 +127,12 @@ def login():
                 session['lastName'] = user['l_name']
                 print(session['studentID'] + " adminID: " + session['adminID'])
                 flash('Welcome ' + session['firstName'],'success')
-                return redirect('/')
+
+                print(session['adminID'])
+                if session['adminID'] == '1':
+                    return redirect('/admin/bicycles')
+                else:
+                    return redirect('/')
             else:
                 cur.close()
                 flash("Password doesn't not match", 'danger')
@@ -145,32 +150,41 @@ def delete_bike(id):
     pass
 
 # List all bicycles
-@app.route('/bicycles/', methods=['POST'])
-def all_bikes(id):
-    pass
+@app.route('/admin/bicycles/', methods=['GET'])
+def all_bikes():
+    cur = mysql.connection.cursor()
+    result_val = cur.execute("SELECT * FROM bicycle")
+    if result_val > 0:
+        bicycles = cur.fetchall()
+        cur.close()
+        return render_template('admin.html', bicycles=bicycles)
+    else:
+        cur.close()
+        return render_template('admin.html', bicycles=None)
+
 
 # List bicycles that belong to a certain building
-@app.route('/bicycles/<int:id>/', methods=['POST'])
+@app.route('/admin/bicycles/<int:id>/', methods=['POST'])
 def all_bikes_by_building(id):
     pass
 
 # Approve bicycle rent
-@app.route('/bicycles/<int:id>/', methods=['POST'])
+@app.route('/admin/bicycles/<int:id>/', methods=['GET','POST'])
 def approve_bike_rent(id):
     pass
 
 # Approve bicycle return
-@app.route('/bicycles/<int:id>/', methods=['POST'])
+@app.route('/admin/bicycles/<int:id>/', methods=['GET','POST'])
 def approve_bike_return(id):
     pass
 
 # Filter bicycles by their type
-@app.route('/bicycles/', methods=['POST'])
+@app.route('/admin/bicycles/', methods=['GET'])
 def filter_bike_type(bike_type):
     pass
 
 # Filter bicycles by their status
-@app.route('/bicycles/', methods=['POST'])
+@app.route('/admin/bicycles/', methods=['GET'])
 def filter_bike_status(bike_status):
     pass
 

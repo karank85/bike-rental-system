@@ -1,1 +1,28 @@
 {% extends 'base.html' %}
+{% block content %}
+<table class="table">
+    <thead class="thead-dark">
+    {% if bicycles %}
+      <tr>
+        <th scope="col">Bike No.</th>
+        <th scope="col">Type of Bike</th>
+        <th scope="col">Bike State</th>
+        <th scope="col">Building</th>
+      </tr>
+    </thead>
+        {% for bicycle in bicycles %}
+            <tbody>
+              <tr>
+                <th scope="row">{{ bicycle['bike_id'] }}</th>
+                <td>{{ bicycle['bike_types'] }}</td>
+                <td>{{ bicycle['bike_state'] }}</td>
+                <td>{{ bicycle['building_name'] }}</td>
+              </tr>
+            </tbody>
+        {% endfor %}
+    </table>
+    {% else %}
+        <div class="display-3">No Bicycle</div>
+    {% endif %}
+
+{% endblock %}
