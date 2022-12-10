@@ -14,9 +14,9 @@ app.config['MYSQL_DB'] = cred['mysql_db']
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 mysql = MySQL(app)
 
-@app.route("/")
+@app.route('/', endpoint="home")
 def index():
-	return render_template("index.html")
+    return render_template('index.html')
 
 @app.route('/register/', methods=['GET', 'POST'])
 def register():

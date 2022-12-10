@@ -5,13 +5,12 @@ DROP TABLE IF EXISTS users;
 
 create table users
 (
-    user_id       int auto_increment,
+    studentID int(7) NOT NULL,
     f_name     varchar(30),
     l_name varchar(35),
-    studentID int(7) NOT NULL,
     password varchar(128) NOT NULL,
     admin_role        bool,
-    primary key (user_id),
+    primary key (studentID),
     constraint u_users
     unique (studentID)
 );
@@ -25,26 +24,52 @@ create table building
     primary key (building_name)
 );
 
+DROP TABLE IF EXISTS bike_status;
+
+create table bike_status
+(
+	state_id int auto_increment NOT NULL,
+    bike_state	varchar(20) NOT NULL UNIQUE,
+    primary key (state_id)
+);
+
+DROP TABLE IF EXISTS bike_type;
+
+create table bike_type
+(
+	type_id int auto_increment NOT NULL,
+    bike_types	varchar(20) NOT NULL UNIQUE,
+    primary key (type_id)
+);
+
 DROP TABLE IF EXISTS bicycle;
 
 create table bicycle
 (
-    bike_id       int auto_increment,
-    bike_type     varchar(20),
-    bike_state	  varchar(20) NOT NULL,
-    phone_num     varchar(30) NOT NULL,
+    bike_id       int auto_increment NOT NULL,
+    bike_types     varchar(20),
+    bike_state	  varchar(20),
+    phone_num     varchar(30),
     rating		  int,
-    user_id		 int,
+    studentID		 int(7),
     building_name varchar(50),
     primary key (bike_id),
+    constraint fk_type
+		foreign key (bike_types)
+        REFERENCES bike_type(bike_types)
+		ON DELETE SET NULL,
+    constraint fk_state
+		foreign key (bike_state)
+        REFERENCES bike_status(bike_state)
+		ON DELETE SET NULL,
     constraint fk_users
-        foreign key (user_id)
-        REFERENCES users(user_id)
+        foreign key (studentID)
+        REFERENCES users(studentID)
 		ON DELETE SET NULL,
 	constraint fk_building
-	foreign key (building_name)
-	REFERENCES building(building_name)
-	ON DELETE SET NULL,
+		foreign key (building_name)
+		REFERENCES building(building_name)
+		ON DELETE SET NULL,
     constraint check_rating check (rating >= 0 AND rating <= 5)
 
 );
