@@ -61,11 +61,12 @@ def register():
             flash('StudentID needs to be a 7 digit number!', 'danger')
             return render_template('register.html')
 
-
         p1 = userDetails['firstName']
         p2 = userDetails['lastName']
         p3 = userDetails['studentID']
         p4 = userDetails['password']
+
+        
 
         hashed_pw = generate_password_hash(p4)
         print(p1 + "," + p2 + "," + p3 + "," + p4 + "," + hashed_pw)
@@ -78,6 +79,13 @@ def register():
         print(check_password_hash(hashed_pw, p4))
         print(queryStatement)
         cur = mysql.connection.cursor()
+        #Check if studentID is a duplicate
+        queryStatementCheckID = (f"SELECT * FROM users WHERE studentID = '{p3}'")
+        print(queryStatementCheckID)
+        duplicateID = cur.execute(queryStatementCheckID)
+        if duplicateID > 0:
+            flash("This StudentID is already in the system.", 'danger')
+            return render_template('register.html')
         cur.execute(queryStatement)
         mysql.connection.commit()
         cur.close()
