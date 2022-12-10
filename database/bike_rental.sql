@@ -29,7 +29,7 @@ DROP TABLE IF EXISTS bike_status;
 create table bike_status
 (
 	state_id int auto_increment NOT NULL,
-    bike_state	varchar(20) NOT NULL UNIQUE,
+    bike_state	varchar(50) NOT NULL UNIQUE DEFAULT 'Available',
     primary key (state_id)
 );
 
@@ -48,7 +48,7 @@ create table bicycle
 (
     bike_id       int auto_increment NOT NULL,
     bike_types     varchar(20),
-    bike_state	  varchar(20),
+    bike_state	  varchar(20) DEFAULT 'Available',
     phone_num     varchar(30),
     rating		  int,
     studentID		 int(7),
@@ -61,7 +61,7 @@ create table bicycle
     constraint fk_state
 		foreign key (bike_state)
         REFERENCES bike_status(bike_state)
-		ON DELETE SET NULL,
+		ON DELETE SET DEFAULT,
     constraint fk_users
         foreign key (studentID)
         REFERENCES users(studentID)
@@ -88,3 +88,14 @@ create table guards
 	    REFERENCES building(building_name)
 	    ON DELETE SET NULL
 );
+
+INSERT INTO bike_status(bike_state) VALUES ('Unavailable');
+INSERT INTO bike_status(bike_state) VALUES ('Available');
+INSERT INTO bike_status(bike_state) VALUES ('Awaiting Approval');
+INSERT INTO bike_status(bike_state) VALUES ('Awaiting Return Approval');
+INSERT INTO bike_status(bike_state) VALUES ('Currently Rented');
+
+INSERT INTO bike_type(bike_types) VALUES ('Fitness Bike');
+INSERT INTO bike_type(bike_types) VALUES ('BMX Bike');
+INSERT INTO bike_type(bike_types) VALUES ('Road Bike');
+INSERT INTO bike_type(bike_types) VALUES ('Utility Bike');
