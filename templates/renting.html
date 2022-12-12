@@ -21,7 +21,12 @@ All cycles
                 <td>{{ bicycle['bike_types'] }}</td>
                 <td>{{ bicycle['bike_state'] }}</td>
                 <td>{{ bicycle['building_name'] }}</td>
-                <td><a href="bicycles/{{ bicycle['bike_id'] }}">Click here to rent!</td></a>
+                {% if bicycle['bike_state'] == 'Available' %}
+                    <td><button type="button" class="btn btn-info"><i class="bi bi-bicycle"><a href="bicycles/{{ bicycle['bike_id'] }}"> Click here to rent!</a></i></button></td>
+                {% else %}
+                <td><button type="button" class="btn btn-secondary"><i class="bi bi-bicycle"> Currently Unavailble</i></button></td>
+                {% endif %}
+
               </tr>
             </tbody>
         {% endfor %}
