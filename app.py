@@ -130,7 +130,7 @@ def login():
 
                 print(session['adminID'])
                 if session['adminID'] == '1':
-                    return redirect('/admin/bicycles')
+                    return redirect('/admin/')
                 else:
                     return redirect('/')
             else:
@@ -150,7 +150,7 @@ def delete_bike(id):
     pass
 
 # List all bicycles
-@app.route('/admin/bicycles/', methods=['GET'])
+@app.route('/admin/', methods=['GET'])
 def all_bikes():
     cur = mysql.connection.cursor()
     result_val = cur.execute("SELECT * FROM bicycle")
@@ -169,22 +169,36 @@ def all_bikes_by_building(id):
     pass
 
 # Approve bicycle rent
-@app.route('/admin/bicycles/<int:id>/', methods=['GET','POST'])
+@app.route('/admin/approve-rent/<int:id>/')
 def approve_bike_rent(id):
-    pass
+    cur = mysql.connection.cursor()
+    query_statement = f"UPDATE bicycle SET bike_state=Currently Rented WHERE bike_id = {id}"
+    cur.execute(query_statement)
+    mysql.connection.commit()
+    cur.close()
+    flash('Bike rental approved', 'success')
+    return redirect('/')
+
+           
 
 # Approve bicycle return
-@app.route('/admin/bicycles/<int:id>/', methods=['GET','POST'])
+@app.route('/admin/approve-return/<int:id>/')
 def approve_bike_return(id):
-    pass
+    cur = mysql.connection.cursor()
+    query_statement = f"UPDATE bicycle SET bike_state=Available WHERE bike_id = {id}"
+    cur.execute(query_statement)
+    mysql.connection.commit()
+    cur.close()
+    flash('Bike rental approved', 'success')
+    return redirect('/')
 
 # Filter bicycles by their type
-@app.route('/admin/bicycles/', methods=['GET'])
+@app.route('/admin/bicycles/filter_type', methods=['GET'])
 def filter_bike_type(bike_type):
     pass
 
 # Filter bicycles by their status
-@app.route('/admin/bicycles/', methods=['GET'])
+@app.route('/admin/bicycles/filter_status', methods=['GET'])
 def filter_bike_status(bike_status):
     pass
 
