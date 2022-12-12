@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle m-4" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Select bike type
+  <button class="btn btn-secondary dropdown-toggle my-2 mx-1" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Select bike status
   </button>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
     <a class="dropdown-item" href="{{ url_for('filter_bike_status',bike_status='Awaiting Approval') }}" >Awaiting Approval</a>
@@ -10,6 +10,17 @@
     <a class="dropdown-item" href="{{ url_for('filter_bike_status',bike_status='Currently Rented') }}">Currently Rented</a>
     <a class="dropdown-item" href="{{ url_for('filter_bike_status',bike_status='Available') }}">Available</a>
     <a class="dropdown-item" href="{{ url_for('filter_bike_status',bike_status='Unavailable') }}">Unavailable</a>
+  </div>
+</div>
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle my-2 mx-1" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Select bike type
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="{{ url_for('filter_bike_type',bike_type='BMX Bike') }}" >BMX</a>
+    <a class="dropdown-item" href="{{ url_for('filter_bike_type',bike_type='Fitness Bike') }}">Fitness</a>
+    <a class="dropdown-item" href="{{ url_for('filter_bike_type',bike_type='Road Bike') }}">Road</a>
+    <a class="dropdown-item" href="{{ url_for('filter_bike_type',bike_type='Utility Bike') }}">Utility</a>
   </div>
 </div>
 <table class="table mx-3">

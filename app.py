@@ -195,7 +195,15 @@ def approve_bike_return(id):
 # Filter bicycles by their type
 @app.route('/admin/bicycles/filter_type/<bike_type>/')
 def filter_bike_type(bike_type):
-    pass
+    cur = mysql.connection.cursor()
+    result_val = cur.execute(f"SELECT * FROM bicycle WHERE bike_types = '{bike_type}'")
+    if result_val > 0:
+        bicycles = cur.fetchall()
+        cur.close()
+        return render_template('admin.html', bicycles=bicycles)
+    else:
+        cur.close()
+        return render_template('admin.html', bicycles=None)
 
 # Filter bicycles by their status
 @app.route('/admin/bicycles/filter_status/<bike_status>/')
