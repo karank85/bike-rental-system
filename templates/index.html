@@ -49,13 +49,14 @@
         <div class="container">
             <img src="static/newbuilding.jpeg" class="image" style="width:100%">
             <div class="middle">
-                <a class="btn btn-primary" href="#" role="button">Adithayathorn Building</a>
+                <a class="btn btn-primary" href="{{ url_for('all_bikes_by_buildings',building_name='Adithayathorn Building') }}" role="button">Adithayathorn Building</a>
             </div>
+          
         </div>
         <div class="container">
             <img src="static/oldbuilding.jpeg" class="image" style="width:100%">
             <div class="middle">
-                <a class="btn btn-primary" href="#" role="button">Old Building</a>
+                <a class="btn btn-primary" href="{{ url_for('all_bikes_by_buildings',building_name='Old Building') }}" role="button">Old Building</a>
             </div>
         </div>
     </body>

@@ -50,6 +50,7 @@ def bicycle(id):
         return render_template('bicycle.html', bicycle=bicycle)
     return 'Cycle not found'
 
+
 @app.route('/register/', methods=['GET', 'POST'])
 def register():
     if request.method == 'GET':
@@ -161,6 +162,18 @@ def all_bikes():
         cur.close()
         return render_template('admin.html', bicycles=None)
 
+# List bicycles that belong to a certain building for users
+@app.route('/renting/bicycles/<building_name>/')
+def all_bikes_by_buildings(building_name):
+    cur = mysql.connection.cursor()
+    result_val = cur.execute(f"SELECT * FROM bicycle WHERE building_name = '{building_name}'")
+    if result_val > 0:
+        bicycles = cur.fetchall()
+        cur.close()
+        return render_template('renting.html', bicycles=bicycles)
+    else:
+        cur.close()
+        return render_template('renting.html', bicycles=None)
 
 # List bicycles that belong to a certain building
 @app.route('/admin/bicycles/<building_name>/')
