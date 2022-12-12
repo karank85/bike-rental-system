@@ -85,14 +85,3 @@ create table guards
 	    REFERENCES building(building_name)
 	    ON DELETE SET NULL
 );
-
-INSERT INTO bike_status(bike_state) VALUES ('Unavailable');
-INSERT INTO bike_status(bike_state) VALUES ('Available');
-INSERT INTO bike_status(bike_state) VALUES ('Awaiting Approval');
-INSERT INTO bike_status(bike_state) VALUES ('Awaiting Return Approval');
-INSERT INTO bike_status(bike_state) VALUES ('Currently Rented');
-
-INSERT INTO bike_type(bike_types) VALUES ('Fitness Bike');
-INSERT INTO bike_type(bike_types) VALUES ('BMX Bike');
-INSERT INTO bike_type(bike_types) VALUES ('Road Bike');
-INSERT INTO bike_type(bike_types) VALUES ('Utility Bike');
