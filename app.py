@@ -78,7 +78,6 @@ def register():
         p4 = userDetails['password']
 
         
-
         hashed_pw = generate_password_hash(p4)
         print(p1 + "," + p2 + "," + p3 + "," + p4 + "," + hashed_pw)
 
@@ -186,8 +185,7 @@ def approve_bike_rent(id):
     cur.close()
     flash('Bike rental approved', 'success')
     return redirect('/admin/')
-
-           
+      
 
 # Approve bicycle return
 @app.route('/admin/approve-return/<int:id>/')
