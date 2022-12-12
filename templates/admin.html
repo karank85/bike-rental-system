@@ -23,6 +23,7 @@
     <a class="dropdown-item" href="{{ url_for('filter_bike_type',bike_type='Utility Bike') }}">Utility</a>
   </div>
 </div>
+<button type="button" class="btn btn-dark" href="{{ url_for('all_bikes') }}">Reset</button>
 <table class="table mx-3">
     <thead class="thead-dark">
     {% if bicycles %}

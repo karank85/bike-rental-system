@@ -164,9 +164,17 @@ def all_bikes():
 
 
 # List bicycles that belong to a certain building
-@app.route('/admin/bicycles/<int:id>/', methods=['POST'])
-def all_bikes_by_building(id):
-    pass
+@app.route('/admin/bicycles/<building_name>/')
+def all_bikes_by_building(building_name):
+    cur = mysql.connection.cursor()
+    result_val = cur.execute(f"SELECT * FROM bicycle WHERE building_name = '{building_name}'")
+    if result_val > 0:
+        bicycles = cur.fetchall()
+        cur.close()
+        return render_template('admin.html', bicycles=bicycles)
+    else:
+        cur.close()
+        return render_template('admin.html', bicycles=None)
 
 # Approve bicycle rent
 @app.route('/admin/approve-rent/<int:id>/')
