@@ -6,7 +6,7 @@
       <tr>
         <th scope="col">Bike No.</th>
         <th scope="col">Type of Bike</th>
-        <th scope="col">Bike State</th>
+        <th scope="col">Bike Status</th>
         <th scope="col">Building</th>
       </tr>
     </thead>
@@ -17,6 +17,13 @@
                 <td>{{ bicycle['bike_types'] }}</td>
                 <td>{{ bicycle['bike_state'] }}</td>
                 <td>{{ bicycle['building_name'] }}</td>
+                <td>
+                    {% if bicycle['bike_state'] == 'Awaiting Approval' %}
+                      <i class="bi bi-check-circle"></i>
+                    {% elif bicycle['bike_state'] == 'Awaiting Return Approval' %}
+                      <i class="bi bi-bicycle"></i>
+                    {% endif %}
+                </td>
               </tr>
             </tbody>
         {% endfor %}
