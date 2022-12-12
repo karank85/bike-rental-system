@@ -1,5 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle m-4" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Select bike type
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="{{ url_for('filter_bike_status',bike_status='Awaiting Approval') }}" >Awaiting Approval</a>
+    <a class="dropdown-item" href="{{ url_for('filter_bike_status',bike_status='Awaiting Return Approval') }}">Awaiting Return Approval</a>
+    <a class="dropdown-item" href="{{ url_for('filter_bike_status',bike_status='Currently Rented') }}">Currently Rented</a>
+    <a class="dropdown-item" href="{{ url_for('filter_bike_status',bike_status='Available') }}">Available</a>
+    <a class="dropdown-item" href="{{ url_for('filter_bike_status',bike_status='Unavailable') }}">Unavailable</a>
+  </div>
+</div>
 <table class="table mx-3">
     <thead class="thead-dark">
     {% if bicycles %}
