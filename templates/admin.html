@@ -46,7 +46,7 @@
       <th scope="col">Type of Bike</th>
       <th scope="col">Bike State</th>
       <th scope="col">Building</th>
-      <th scope="col">Rent</th>
+      <th scope="col">Actions</th>
     </tr>
   </thead>
   {% if bicycles %}
@@ -58,11 +58,10 @@
               <td>{{ bicycle['bike_state'] }}</td>
               <td>{{ bicycle['building_name'] }}</td>
               {% if bicycle['bike_state'] == 'Awaiting Approval' %}
-                      <a href="{{ url_for('approve_bike_rent',id=bicycle['bike_id'])}}"> <i class="bi bi-check-circle"></i> </a>
+                      <td><a href="{{ url_for('approve_bike_rent',id=bicycle['bike_id'])}}"> <i class="bi bi-check-circle"></i> </a></td>
                     {% elif bicycle['bike_state'] == 'Awaiting Return Approval' %}
-                      <a href="{{ url_for('approve_bike_return',id=bicycle['bike_id'])}}"><i class="bi bi-bicycle"></i></a>
+                      <td><a href="{{ url_for('approve_bike_return',id=bicycle['bike_id'])}}"><i class="bi bi-bicycle"></i></a></td>
                     {% endif %}
-
             </tr>
           </tbody>
       {% endfor %}
