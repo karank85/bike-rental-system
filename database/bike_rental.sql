@@ -5,14 +5,14 @@ DROP TABLE IF EXISTS users;
 
 create table users
 (
-    studentID int(7) NOT NULL,
+    user_id int(7) NOT NULL,
     f_name     varchar(30),
     l_name varchar(35),
     password varchar(128) NOT NULL,
     admin_role        bool,
-    primary key (studentID),
+    primary key (user_id),
     constraint u_users
-    unique (studentID)
+    unique (user_id)
 );
 
 DROP TABLE IF EXISTS building;
@@ -67,19 +67,4 @@ create table bicycle
 		foreign key (building_name)
 		REFERENCES building(building_name)
 		ON DELETE SET NULL
-);
-
-DROP TABLE IF EXISTS guards;
-
-create table guards
-(
-    guard_id       int auto_increment,
-    f_name     varchar(30),
-    l_name varchar(35),
-    building_name	varchar(50),
-    primary key (guard_id),
-    constraint fk_buildings
-	    foreign key (building_name)
-	    REFERENCES building(building_name)
-	    ON DELETE SET NULL
 );

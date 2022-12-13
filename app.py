@@ -18,7 +18,7 @@ mysql = MySQL(app)
 @app.route('/', endpoint="home")
 def index():
     try:
-        username = session['studentID']
+        username = session['user_id']
         isAdmin = session['adminID']
         if isAdmin != '0':
             return redirect("/admin")
@@ -30,7 +30,7 @@ def index():
 @app.route('/renting/')
 def renting():
     try:
-        username = session['studentID']
+        username = session['user_id']
         isAdmin = session['adminID']
         if isAdmin != '0':
             return redirect("/")
@@ -43,7 +43,7 @@ def renting():
     if resultValue > 0:
         bicycles = cur.fetchall()
         cur.close()
-        return render_template('renting.html', bicycles=bicycles, user=int(session['studentID']))
+        return render_template('renting.html', bicycles=bicycles, user=int(session['user_id']))
     cur.close()
     return render_template('renting.html', bicycles=None)
 
@@ -61,8 +61,8 @@ def bicycle(id):
         elif request.method == 'POST':
             bicycleDetails = request.form
             #Check if correct user is asking to rent cycle
-            if bicycleDetails['ID'] != session['studentID']:
-                flash('StudentID Mismatch!', 'danger')
+            if bicycleDetails['ID'] != session['user_id']:
+                flash('ID Mismatch!', 'danger')
                 return render_template('bicycle.html', bicycle=bicycle)
 
             cur.execute(queryStatement)
@@ -77,13 +77,13 @@ def bicycle(id):
                 return render_template('renting.html', bicycles=bicycles)
 
             #Change the bike status to Awaiting Approval
-            #Add Student_ID, Phone_Num, Time to Database
+            #Add User_ID, Phone_Num, Time to Database
             student_id = bicycleDetails['ID']
             phone_num = bicycleDetails['phone']
             time = bicycleDetails['time']
             queryStatement = f"UPDATE bicycle SET bike_state='Awaiting Approval' WHERE bike_id = {id}"
             cur.execute(queryStatement)
-            queryStatement = f"UPDATE bicycle SET studentID='{student_id}', phone_num='{phone_num}', last_return_time='{time}' WHERE bike_id = {id}"
+            queryStatement = f"UPDATE bicycle SET user_id='{student_id}', phone_num='{phone_num}', last_return_time='{time}' WHERE bike_id = {id}"
             cur.execute(queryStatement)
             mysql.connection.commit()
             cur.close()
@@ -106,7 +106,7 @@ def return_bike(id):
 def register():
     if request.method == 'GET':
         try:
-            username = session['studentID']
+            username = session['user_id']
             flash('Please log out before you create a new account', 'danger')
             return redirect('/')
         except:
@@ -119,19 +119,19 @@ def register():
             flash('Passwords do not match!', 'danger')
             return render_template('register.html')
 
-		# Check if StudentID is numeric
-        if str(userDetails['studentID']).isnumeric() == False:
-            flash('StudentID should be a number!', 'danger')
+		# Check if ID is numeric
+        if str(userDetails['user_id']).isnumeric() == False:
+            flash('ID should be a number!', 'danger')
             return render_template('register.html')
 
-		# Check if StudentID is correct
-        if len(userDetails['studentID']) != 7:
-            flash('StudentID needs to be a 7 digit number!', 'danger')
+		# Check if ID is correct
+        if len(userDetails['user_id']) != 7:
+            flash('ID needs to be a 7 digit number!', 'danger')
             return render_template('register.html')
 
         p1 = userDetails['firstName']
         p2 = userDetails['lastName']
-        p3 = userDetails['studentID']
+        p3 = userDetails['user_id']
         p4 = userDetails['password']
 
         
@@ -140,18 +140,18 @@ def register():
 
         queryStatement = (
             f"INSERT INTO "
-            f"users(f_name, l_name, studentID, password, admin_role) "
+            f"users(f_name, l_name, user_id, password, admin_role) "
             f"VALUES('{p1}', '{p2}', '{p3}', '{hashed_pw}', False)"
         )
         print(check_password_hash(hashed_pw, p4))
         print(queryStatement)
         cur = mysql.connection.cursor()
-        #Check if studentID is a duplicate
-        queryStatementCheckID = (f"SELECT * FROM users WHERE studentID = '{p3}'")
+        #Check if user_id is a duplicate
+        queryStatementCheckID = (f"SELECT * FROM users WHERE user_id = '{p3}'")
         print(queryStatementCheckID)
         duplicateID = cur.execute(queryStatementCheckID)
         if duplicateID > 0:
-            flash("This StudentID is already in the system.", 'danger')
+            flash("This ID is already in the system.", 'danger')
             return render_template('register.html')
         cur.execute(queryStatement)
         mysql.connection.commit()
@@ -165,16 +165,16 @@ def register():
 def login():
     if request.method == 'GET':
         try:
-            username = session['studentID']
+            username = session['user_id']
             flash('You are already logged in', 'danger')
             return redirect('/')
         except:
             return render_template('login.html')
     elif request.method == 'POST':
         loginForm = request.form
-        studentID = loginForm['studentID']
+        user_id = loginForm['user_id']
         cur = mysql.connection.cursor()
-        queryStatement = f"SELECT * FROM users WHERE studentID = '{studentID}'"
+        queryStatement = f"SELECT * FROM users WHERE user_id = '{user_id}'"
         numRow = cur.execute(queryStatement)
         if numRow > 0:
             user =  cur.fetchone()
@@ -182,11 +182,11 @@ def login():
                 
                 #Recording Session Information
                 session['login'] = True
-                session['studentID'] = str(user['studentID'])
+                session['user_id'] = str(user['user_id'])
                 session['adminID'] = str(user['admin_role'])
                 session['firstName'] = user['f_name']
                 session['lastName'] = user['l_name']
-                print(session['studentID'] + " adminID: " + session['adminID'])
+                print(session['user_id'] + " adminID: " + session['adminID'])
                 flash('Welcome ' + session['firstName'],'success')
 
                 print(session['adminID'])
@@ -251,7 +251,7 @@ def all_bikes():
 @app.route('/renting/bicycles/<building_name>/')
 def all_bikes_by_buildings(building_name):
     try:
-        username = session['studentID']
+        username = session['user_id']
         isAdmin = session['adminID']
         if isAdmin != '0':
             return redirect("/")
