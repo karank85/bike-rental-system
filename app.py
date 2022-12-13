@@ -209,6 +209,8 @@ def login():
 # Delete a certain bike from the database
 @app.route('/delete-bicycle/<int:id>/')
 def delete_bike(id):
+    if session['adminID'] == '0':
+        return redirect('/')
     cur = mysql.connection.cursor()
     query_statement = f"DELETE FROM bicycle WHERE bike_id = {id}"
     cur.execute(query_statement)
@@ -219,6 +221,8 @@ def delete_bike(id):
 # Add a new bicycle
 @app.route('/admin/bicycle/create/', methods=['GET', 'POST'])
 def create_bicycle():
+    if session['adminID'] == '0':
+        return redirect('/')
     if request.method == 'POST':
         bike_form = request.form
         bike_type = bike_form['bike_type']
@@ -237,6 +241,8 @@ def create_bicycle():
 # List all bicycles
 @app.route('/admin/', methods=['GET'])
 def all_bikes():
+    if session['adminID'] == '0':
+        return redirect('/')
     cur = mysql.connection.cursor()
     result_val = cur.execute("SELECT * FROM bicycle")
     if result_val > 0:
@@ -271,6 +277,8 @@ def all_bikes_by_buildings(building_name):
 # List bicycles that belong to a certain building
 @app.route('/admin/bicycles/<building_name>/')
 def all_bikes_by_building(building_name):
+    if session['adminID'] == '0':
+        return redirect('/')
     cur = mysql.connection.cursor()
     result_val = cur.execute(f"SELECT * FROM bicycle WHERE building_name = '{building_name}'")
     if result_val > 0:
@@ -284,6 +292,8 @@ def all_bikes_by_building(building_name):
 # Approve bicycle rent
 @app.route('/admin/approve-rent/<int:id>/')
 def approve_bike_rent(id):
+    if session['adminID'] == '0':
+        return redirect('/')
     cur = mysql.connection.cursor()
     query_statement = f"UPDATE bicycle SET bike_state='Currently Rented' WHERE bike_id = {id}"
     cur.execute(query_statement)
@@ -296,6 +306,8 @@ def approve_bike_rent(id):
 # Approve bicycle return
 @app.route('/admin/approve-return/<int:id>/')
 def approve_bike_return(id):
+    if session['adminID'] == '0':
+        return redirect('/')
     cur = mysql.connection.cursor()
     query_statement = f"UPDATE bicycle SET bike_state='Available' WHERE bike_id = {id}"
     cur.execute(query_statement)
@@ -307,6 +319,8 @@ def approve_bike_return(id):
 # Filter bicycles by their type
 @app.route('/admin/bicycles/filter_type/<bike_type>/')
 def filter_bike_type(bike_type):
+    if session['adminID'] == '0':
+        return redirect('/')
     cur = mysql.connection.cursor()
     result_val = cur.execute(f"SELECT * FROM bicycle WHERE bike_types = '{bike_type}'")
     if result_val > 0:
@@ -320,6 +334,8 @@ def filter_bike_type(bike_type):
 # Filter bicycles by their status
 @app.route('/admin/bicycles/filter_status/<bike_status>/')
 def filter_bike_status(bike_status):
+    if session['adminID'] == '0':
+        return redirect('/')
     cur = mysql.connection.cursor()
     result_val = cur.execute(f"SELECT * FROM bicycle WHERE bike_state = '{bike_status}'")
     if result_val > 0:
@@ -338,3 +354,4 @@ def logout():
 
 if __name__ == '__main__':
 	app.run(debug=True)
+    

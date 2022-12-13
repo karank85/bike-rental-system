@@ -1,10 +1,7 @@
 # Bike Rental System for Mahidol University
 
 
-### Team members:
-- Thanesphol Leerungruang 6380628
-- Karan Kumar 6380812
-- Naphong Chadha 6380797
+### Team: Sandevistan
 
 ## Problem: 
 Have you ever tried renting a bike within our campus? It can be annoying right as sometimes you have to wait for the guard then you have to spend time signing up on a sheet just to finally get the key
@@ -46,15 +43,35 @@ Students, Professors, University staffs and Guards who will be managing the bike
     - Add a new bicycle to the database
     - Filter the bicycle database by bicycle type, building and their status
 - Users (Students and Staff)
-    - blabla...
+    - Obviously creating accounts and being able to login and logout without any issues
+    - Users are redirected into the home page when they login
+    - The homepage contains the different buildings that they can rent bicycles at in MUIC
+    - Users can then go to the renting page either through the navbar of by clicking on the buildings in the home page
+    - In the renting page, the users can see all the bicycles and all their info like the bike type and which building they are in
+    - The currently rented bikes only contains an ETA time as to when it will be returned in the case that you have a favourite bike!
+    - Our UI is also extremely user friendly when renting a cycle and returning the cycle, since they only have to provide their phone number and an ETA return time before being granted permission to rent the cycle
 
 # Database Design 
 
 ## E-R Diagram
 
+![er_diagram](/static/IMG_1658A08AABEE-1.jpeg)
+
+This design is what we were able to implement for our database
+
+## Remark testing the website:
+
+The sql files `bike_rental.sql` contains the script that makes our schema while `data.sql` contains the script to preload data into the database. 
+
+Admin cannot be created however we will create one for you to test it with these credentials
+
+```
+id: 1234567
+password: admin1
+```
+
+To test as a user who rents the bike please register the account yourself. 
 
 
-
-
-
+We hope you enjoy and please be fair on the evaluation :)
 
