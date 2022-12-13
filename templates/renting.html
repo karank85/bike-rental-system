@@ -22,16 +22,6 @@
       animation-direction: normal;
       animation-timing-function: ease;
       animation-iteration-count: infinite;
-    }
-    a:active {
-      color: yellow;
-      background-color: transparent;
-      text-decoration: underline;
-    }
-    a:link {
-      color: orange;
-      background-color: transparent;
-      text-decoration: none;
     } 
     @keyframes slide {
       0% {
@@ -91,13 +81,16 @@
                 <td>{{ bicycle['bike_state'] }}</td>
                 <td>{{ bicycle['building_name'] }}</td>
                 {% if bicycle['bike_state'] == 'Available' %}
-                    <td><button type="button" class="btn btn-outline-success"><i class="bi bi-bicycle"><a href="/renting/bicycles/{{ bicycle['bike_id'] }}"> Click here to rent!</a></i></button></td>
+                    <td><button type="button" class="btn btn-outline-success"><i class="bi bi-bicycle"><a href="/renting/bicycles/{{ bicycle['bike_id'] }}"><font color="green"> Click here to rent!</font></a></i></button></td>
                 {% elif bicycle['bike_state'] == 'Currently Rented' and user == bicycle['studentID'] %}
-                    <td><button type="button" class="btn btn-outline-warning"><i class="bi bi-bicycle"><a href="{{ url_for('return_bike',id=bicycle['bike_id'])}}"> Return Bicycle</a></i></button></td>
-                {% else %}
-                <td><button type="button" class="btn btn-outline-danger disabled"><i class="bi bi-bicycle"> Currently Unavailable </i></button></td>
+                    <td><button type="button" class="btn btn-outline-warning"><i class="bi bi-bicycle"><a href="{{ url_for('return_bike',id=bicycle['bike_id'])}}"><font color="orange"> Return Bicycle</font></a></i></button></td>
+                {% elif bicycle['bike_state'] == 'Currently Rented' or bicycle['bike_state'] == 'Awaiting Return Approval' %}
+                    <td><button type="button" class="btn btn-outline-danger disabled"><i class="bi bi-bicycle"> Will be available at: {{bicycle['last_return_time']}} </i></button></td>
+                {% elif bicycle['bike_state'] == 'Awaiting Approval' %}
+                <td><button type="button" class="btn btn-outline-danger disabled"><i class="bi bi-bicycle"> Waiting for Admin to approve</i></button></td>                
+                {% elif bicycle['bike_state'] == 'Unavailable' %}
+                <td><button type="button" class="btn btn-outline-danger disabled"><i class="bi bi-bicycle"> Bike is unavailable. Please notify the guard. </i></button></td>
                 {% endif %}
-
               </tr>
             </tbody>
         {% endfor %}
