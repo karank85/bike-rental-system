@@ -84,7 +84,12 @@ def bicycle(id):
 @app.route('/register/', methods=['GET', 'POST'])
 def register():
     if request.method == 'GET':
-        return render_template('register.html')
+        try:
+            username = session['studentID']
+            flash('Please log out before you create a new account', 'danger')
+            return redirect('/')
+        except:
+            return render_template('register.html')
     elif request.method == 'POST':
         userDetails = request.form
 
