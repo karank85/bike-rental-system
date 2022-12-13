@@ -51,7 +51,8 @@ Students, Professors, University staffs and Guards who will be managing the bike
     - The currently rented bikes only contains an ETA time as to when it will be returned in the case that you have a favourite bike!
     - Our UI is also extremely user friendly when renting a cycle and returning the cycle, since they only have to provide their phone number and an ETA return time before being granted permission to rent the cycle
     
-One feature we couldn't implement in time: Users returning bicycle feature
+Feature we couldn't implement in time:
+- Users returning bicycle feature
 
 # Database Design 
 
