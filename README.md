@@ -46,7 +46,13 @@ Students, Professors, University staffs and Guards who will be managing the bike
     - Add a new bicycle to the database
     - Filter the bicycle database by bicycle type, building and their status
 - Users (Students and Staff)
-    - blabla...
+    - Obviously creating accounts and being able to login and logout without any issues
+    - Users are redirected into the home page when they login
+    - The homepage contains the different buildings that they can rent bicycles at in MUIC
+    - Users can then go to the renting page either through the navbar of by clicking on the buildings in the home page
+    - In the renting page, the users can see all the bicycles and all their info like the bike type and which building they are in
+    - The currently rented bikes only contains an ETA time as to when it will be returned in the case that you have a favourite bike!
+    - Our UI is also extremely user friendly when renting a cycle and returning the cycle, since they only have to provide their phone number and an ETA return time before being granted permission to rent the cycle
 
 # Database Design 
 
