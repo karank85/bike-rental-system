@@ -39,7 +39,7 @@ def renting():
     cur.close()
     return render_template('renting.html', bicycles=None)
 
-@app.route('/renting/bicycles/<int:id>/')
+@app.route('/renting/bicycles/<int:id>/', methods=['GET', 'POST'])
 def bicycle(id):
     cur = mysql.connection.cursor()
     queryStatement = f"SELECT * from bicycle WHERE bike_id = {id}"
@@ -47,7 +47,15 @@ def bicycle(id):
     resultValue = cur.execute(queryStatement)
     if resultValue > 0:
         bicycle = cur.fetchone()
-        return render_template('bicycle.html', bicycle=bicycle)
+        if request.method == 'GET':
+            return render_template('bicycle.html', bicycle=bicycle)
+        elif request.method == 'POST':
+            bicycleDetails = request.form
+
+            cur.close()
+
+            flash("Rent request has been sent to admin.", "success")
+            return redirect('/')  
     return 'Cycle not found'
 
 
