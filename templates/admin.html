@@ -34,6 +34,16 @@
       <a class="dropdown-item" href="{{ url_for('filter_bike_type',bike_type='Road Bike') }}">Road</a>
       <a class="dropdown-item" href="{{ url_for('filter_bike_type',bike_type='Utility Bike') }}">Utility</a>
     </div>
+    <div class="dropdown d-inline-block">
+      <button class="btn btn-secondary dropdown-toggle my-2 mx-1" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Select building
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="{{ url_for('all_bikes_by_building',building_name='Adithayathorn Building') }}" >Adithayathorn Building</a>
+        <a class="dropdown-item" href="{{ url_for('all_bikes_by_building',building_name='Old Building') }}">Old Building</a>
+        <a class="dropdown-item" href="{{ url_for('all_bikes_by_building',building_name='MLC Building') }}">MLC Building</a>
+      </div>
+    </div>
   </div>
   <div class="dropdown d-inline-block">
   <a class="btn btn-dark" href="{{ url_for('all_bikes') }}" role="button">Reset</a>
