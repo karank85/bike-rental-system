@@ -83,7 +83,7 @@
                 <td>{{ bicycle['building_name'] }}</td>
                 {% if bicycle['bike_state'] == 'Available' %}
                     <td><button type="button" class="btn btn-outline-success"><i class="bi bi-bicycle"><a href="/renting/bicycles/{{ bicycle['bike_id'] }}"><font color="green"> Click here to rent!</font></a></i></button></td>
-                {% elif bicycle['bike_state'] == 'Currently Rented' and user == bicycle['studentID'] %}
+                {% elif bicycle['bike_state'] == 'Currently Rented' and user == bicycle['user_id'] %}
                     <td><button type="button" class="btn btn-outline-warning"><i class="bi bi-bicycle"><a href="{{ url_for('return_bike',id=bicycle['bike_id'])}}"><font color="orange"> Return Bicycle</font></a></i></button></td>
                 {% elif bicycle['bike_state'] == 'Currently Rented' or bicycle['bike_state'] == 'Awaiting Return Approval' %}
                     <td><button type="button" class="btn btn-outline-danger disabled"><i class="bi bi-bicycle"> Will be available at: {{bicycle['last_return_time']}} </i></button></td>
