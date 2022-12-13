@@ -48,7 +48,7 @@ create table bicycle
     bike_types     varchar(20),
     bike_state	  varchar(50) DEFAULT 'Available',
     phone_num     varchar(30),
-    studentID		 int(7),
+    user_id		 int(7),
     building_name varchar(50),
     last_return_time TIME,
     primary key (bike_id),
@@ -60,8 +60,8 @@ create table bicycle
         REFERENCES bike_status(bike_state)
 		ON DELETE SET DEFAULT,
     constraint fk_users
-        foreign key (studentID)
-        REFERENCES users(studentID)
+        foreign key (user_id)
+        REFERENCES users(user_id)
 		ON DELETE SET NULL,
 	constraint fk_building
 		foreign key (building_name)
