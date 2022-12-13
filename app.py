@@ -51,9 +51,32 @@ def bicycle(id):
             return render_template('bicycle.html', bicycle=bicycle)
         elif request.method == 'POST':
             bicycleDetails = request.form
+            #Check if correct user is asking to rent cycle
+            if bicycleDetails['ID'] != session['studentID']:
+                flash('StudentID Mismatch!', 'danger')
+                return render_template('bicycle.html', bicycle=bicycle)
 
+            cur.execute(queryStatement)
+            bicycleReCheck = cur.fetchone()
+            #Re checking if Bicycle is available since it might have been used
+            if bicycleReCheck['bike_state'] != 'Available':
+                resultValue =  cur.execute("SELECT * FROM bicycle")
+                flash('Bicycle is currently unavailable.', 'danger')
+                if resultValue > 0:
+                    bicycles = cur.fetchall()
+                    cur.close()
+                return render_template('renting.html', bicycles=bicycles)
+
+            #Change the bike status to Awaiting Approval
+            #Add Student_ID, Phone_Num, Time to Database
+            student_id = bicycleDetails['ID']
+            phone_num = bicycleDetails['phone']
+            queryStatement = f"UPDATE bicycle SET bike_state='Awaiting Approval' WHERE bike_id = {id}"
+            cur.execute(queryStatement)
+            queryStatement = f"UPDATE bicycle SET studentID='{student_id}', phone_num='{phone_num}' WHERE bike_id = {id}"
+            cur.execute(queryStatement)
+            mysql.connection.commit()
             cur.close()
-
             flash("Rent request has been sent to admin.", "success")
             return redirect('/')  
     return 'Cycle not found'
