@@ -11,6 +11,7 @@ INSERT INTO bike_type(bike_types) VALUES ('Utility Bike');
 
 INSERT INTO building(building_name) VALUES ('Adithayathorn Building');
 INSERT INTO building(building_name,location) VALUES ('Old Building','WHEREVER');
+INSERT INTO building(building_name,location) VALUES ('MLC Building','WHEREVER');
 
 INSERT INTO bicycle(bike_types,building_name) VALUES('BMX Bike','Adithayathorn Building');
 INSERT INTO bicycle(bike_types,bike_state,building_name) VALUES('Fitness Bike','Unavailable','Adithayathorn Building');
