@@ -57,8 +57,7 @@ create table bicycle
         REFERENCES bike_type(bike_types),
     constraint fk_state
 		foreign key (bike_state)
-        REFERENCES bike_status(bike_state)
-		ON DELETE SET DEFAULT,
+        REFERENCES bike_status(bike_state),
     constraint fk_users
         foreign key (user_id)
         REFERENCES users(user_id)

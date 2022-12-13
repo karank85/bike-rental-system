@@ -158,7 +158,7 @@ def register():
         cur.close()
 
         flash("Form Submitted Successfully.", "success")
-        return redirect('/')    
+        return redirect('/login/')    
     return render_template('register.html')
 
 @app.route('/login/', methods=['GET', 'POST'])
