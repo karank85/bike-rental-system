@@ -23,6 +23,16 @@
       animation-timing-function: ease;
       animation-iteration-count: infinite;
     }
+    a:active {
+      color: yellow;
+      background-color: transparent;
+      text-decoration: underline;
+    }
+    a:link {
+      color: orange;
+      background-color: transparent;
+      text-decoration: none;
+    } 
     @keyframes slide {
       0% {
         background-position: 0 0;
@@ -82,8 +92,10 @@
                 <td>{{ bicycle['building_name'] }}</td>
                 {% if bicycle['bike_state'] == 'Available' %}
                     <td><button type="button" class="btn btn-outline-success"><i class="bi bi-bicycle"><a href="/renting/bicycles/{{ bicycle['bike_id'] }}"> Click here to rent!</a></i></button></td>
+                {% elif bicycle['bike_state'] == 'Currently Rented' and user == bicycle['studentID'] %}
+                    <td><button type="button" class="btn btn-outline-warning"><i class="bi bi-bicycle"><a href="{{ url_for('return_bike',id=bicycle['bike_id'])}}"> Return Bicycle</a></i></button></td>
                 {% else %}
-                <td><button type="button" class="btn btn-outline-danger disabled"><i class="bi bi-bicycle"> Currently Unavailable</i></button></td>
+                <td><button type="button" class="btn btn-outline-danger disabled"><i class="bi bi-bicycle"> Currently Unavailable </i></button></td>
                 {% endif %}
 
               </tr>

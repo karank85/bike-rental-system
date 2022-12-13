@@ -14,6 +14,7 @@ app.config['MYSQL_DB'] = cred['mysql_db']
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 mysql = MySQL(app)
 
+# Home Page
 @app.route('/', endpoint="home")
 def index():
     try:
@@ -23,7 +24,9 @@ def index():
             return redirect("/admin")
     except:
         return render_template('index.html')
+    return render_template('index.html')
 
+# Page which shows all the cycles to rent
 @app.route('/renting/')
 def renting():
     try:
@@ -40,10 +43,11 @@ def renting():
     if resultValue > 0:
         bicycles = cur.fetchall()
         cur.close()
-        return render_template('renting.html', bicycles=bicycles)
+        return render_template('renting.html', bicycles=bicycles, user=int(session['studentID']))
     cur.close()
     return render_template('renting.html', bicycles=None)
 
+# Page for individual bike "Renting Form"
 @app.route('/renting/bicycles/<int:id>/', methods=['GET', 'POST'])
 def bicycle(id):
     cur = mysql.connection.cursor()
@@ -76,9 +80,10 @@ def bicycle(id):
             #Add Student_ID, Phone_Num, Time to Database
             student_id = bicycleDetails['ID']
             phone_num = bicycleDetails['phone']
+            time = bicycleDetails['time']
             queryStatement = f"UPDATE bicycle SET bike_state='Awaiting Approval' WHERE bike_id = {id}"
             cur.execute(queryStatement)
-            queryStatement = f"UPDATE bicycle SET studentID='{student_id}', phone_num='{phone_num}' WHERE bike_id = {id}"
+            queryStatement = f"UPDATE bicycle SET studentID='{student_id}', phone_num='{phone_num}', last_return_time='{time}' WHERE bike_id = {id}"
             cur.execute(queryStatement)
             mysql.connection.commit()
             cur.close()
@@ -86,6 +91,17 @@ def bicycle(id):
             return redirect('/')  
     return 'Cycle not found'
 
+@app.route('/renting/return-bicycle/<int:id>')
+def return_bike(id):
+    cur = mysql.connection.cursor()
+    query_statement = f"UPDATE bicycle SET bike_state='Awaiting Return Approval' WHERE bike_id = {id}"
+    cur.execute(query_statement)
+    mysql.connection.commit()
+    cur.close()
+    flash('Return request has been sent to admin.', 'success')
+    return redirect('/')
+
+# Sign Up
 @app.route('/register/', methods=['GET', 'POST'])
 def register():
     if request.method == 'GET':
