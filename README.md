@@ -6,7 +6,8 @@
 - Karan Kumar 6380812
 - Naphong Chadha 6380797
 
-## Problem: Have you ever tried renting a bike within our campus? It can be annoying right as sometimes you have to wait for the guard then you have to spend time signing up on a sheet just to finally get the key
+## Problem: 
+Have you ever tried renting a bike within our campus? It can be annoying right as sometimes you have to wait for the guard then you have to spend time signing up on a sheet just to finally get the key
 
 ### Pain Points: 
 - We aren’t able to check the availability of the bicycles without actually physically being there 
@@ -32,3 +33,28 @@ Students, Professors, University staffs and Guards who will be managing the bike
 ### Roles and responsibilities of each group:
 - Students, Professors and Employees: Log in into the system, book and check availability of bicycles on the system online without actually being there.
 - Guards: Can check when someone has a booking so they can be ready at the bicycle retrieval place with the keys ready. Additionally they can confirm when someone shows up to pick up the bike or return the bike.
+
+## Features we were able to implement
+
+<b> Note: </b> Guards and normal users will see completely different webpage as they have different features and responsibility interacting with the webapp
+
+- Guards
+    - View all bicycles in the database and see their current status, which building they are in and additional info of the user who if its being rented
+    - Approve renting when a users request to rent the bike
+    - Approve bicycle has been returned
+    - Delete bicycle from the database
+    - Add a new bicycle to the database
+    - Filter the bicycle database by bicycle type, building and their status
+- Users (Students and Staff)
+    - blabla...
+
+# Database Design 
+
+## E-R Diagram
+
+
+
+
+
+
+
