@@ -1,10 +1,7 @@
 # Bike Rental System for Mahidol University
 
 
-### Team members:
-- Thanesphol Leerungruang 6380628
-- Karan Kumar 6380812
-- Naphong Chadha 6380797
+### Team: Sandevistan
 
 ## Problem: 
 Have you ever tried renting a bike within our campus? It can be annoying right as sometimes you have to wait for the guard then you have to spend time signing up on a sheet just to finally get the key
