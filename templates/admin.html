@@ -80,7 +80,7 @@
                       </button>
                     </a>
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#infoModal">
-                      <i class="bi bi-telephone"></i>
+                      <i class="bi-info-circle-fill"></i>
                     </button>
                   </td>
               {% elif bicycle['bike_state'] == 'Awaiting Return Approval' %}
@@ -91,26 +91,27 @@
                         </button>
                       </a>
                       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#infoModal">
-                        <i class="bi bi-telephone"></i>
+                        <i class="bi-info-circle-fill"></i>
                       </button>
                     </td>
               {% elif bicycle['bike_state'] == 'Currently Rented' %}
                     <td>
                       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#infoModal">
-                        <i class="bi bi-telephone"></i>
+                        <i class="bi-info-circle-fill"></i>
                       </button>
                     </td>
                     <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Contact phone number</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Renting Information</h5>
                             <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                               <span aria-hidden="true">&times;</span>
                             </button>
                           </div>
                           <div class="modal-body">
-                            Phone number: {{ bicycle['phone_num'] }}
+                            Phone number: {{ bicycle['phone_num'] }} <br/>
+                            Expected Return time: {{ bicycle['last_return_time'] }}
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>                            </div>
