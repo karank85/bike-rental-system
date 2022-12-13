@@ -48,9 +48,9 @@ create table bicycle
     bike_types     varchar(20),
     bike_state	  varchar(50) DEFAULT 'Available',
     phone_num     varchar(30),
-    rating		  int,
     studentID		 int(7),
     building_name varchar(50),
+    last_return_time TIME,
     primary key (bike_id),
     constraint fk_type
 		foreign key (bike_types)

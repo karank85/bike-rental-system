@@ -15,3 +15,4 @@ INSERT INTO building(building_name,location) VALUES ('Old Building','WHEREVER');
 INSERT INTO bicycle(bike_types,building_name) VALUES('BMX Bike','Adithayathorn Building');
 INSERT INTO bicycle(bike_types,bike_state,building_name) VALUES('Fitness Bike','Unavailable','Adithayathorn Building');
 INSERT INTO bicycle(bike_types,bike_state,building_name) VALUES('Road Bike','Currently Rented','Old Building');
+INSERT INTO bicycle(bike_types,building_name,last_return_time) VALUES('BMX Bike','Adithayathorn Building','12:50:12');
