@@ -205,6 +205,15 @@ def all_bikes():
 # List bicycles that belong to a certain building for users
 @app.route('/renting/bicycles/<building_name>/')
 def all_bikes_by_buildings(building_name):
+    try:
+        username = session['studentID']
+        isAdmin = session['adminID']
+        if isAdmin != '0':
+            flash('Only students are allowed to rent bicycles', 'danger')
+            return redirect("/")
+    except:
+        flash('Please log in first', 'danger')
+        return redirect('/login')
     cur = mysql.connection.cursor()
     result_val = cur.execute(f"SELECT * FROM bicycle WHERE building_name = '{building_name}'")
     if result_val > 0:
