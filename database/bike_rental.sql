@@ -66,9 +66,7 @@ create table bicycle
 	constraint fk_building
 		foreign key (building_name)
 		REFERENCES building(building_name)
-		ON DELETE SET NULL,
-    constraint check_rating check (rating >= 0 AND rating <= 5)
-
+		ON DELETE SET NULL
 );
 
 DROP TABLE IF EXISTS guards;
