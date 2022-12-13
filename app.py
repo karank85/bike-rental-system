@@ -16,7 +16,13 @@ mysql = MySQL(app)
 
 @app.route('/', endpoint="home")
 def index():
-    return render_template('index.html')
+    try:
+        username = session['studentID']
+        isAdmin = session['adminID']
+        if isAdmin != '0':
+            return redirect("/admin")
+    except:
+        return render_template('index.html')
 
 @app.route('/renting/')
 def renting():
@@ -24,7 +30,6 @@ def renting():
         username = session['studentID']
         isAdmin = session['adminID']
         if isAdmin != '0':
-            flash('Only students are allowed to rent bicycles', 'danger')
             return redirect("/")
     except:
         flash('Please log in first', 'danger')
@@ -175,7 +180,8 @@ def login():
                     return redirect('/')
             else:
                 cur.close()
-                flash("Password doesn't not match", 'danger')
+                flash("Wrong Credentials", 'danger')
+                return render_template('login.html')
         else:
             cur.close()
             flash('User not found', 'danger')
@@ -214,7 +220,6 @@ def all_bikes_by_buildings(building_name):
         username = session['studentID']
         isAdmin = session['adminID']
         if isAdmin != '0':
-            flash('Only students are allowed to rent bicycles', 'danger')
             return redirect("/")
     except:
         flash('Please log in first', 'danger')
