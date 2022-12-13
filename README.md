@@ -52,9 +52,23 @@ Students, Professors, University staffs and Guards who will be managing the bike
 
 ## E-R Diagram
 
+![er_diagram](/static/IMG_1658A08AABEE-1.jpeg)
+
+This design is what we were able to implement for our database
+
+## Remark testing the website:
+
+The sql files `bike_rental.sql` contains the script that makes our schema while `data.sql` contains the script to preload data into the database. 
+
+Admin cannot be created however we will create one for you to test it with these credentials
+
+```
+id: 1234567
+password: admin1
+```
+
+To test as a user who rents the bike please register the account yourself. 
 
 
-
-
-
+We hope you enjoy and please be fair on the evaluation :)
 
