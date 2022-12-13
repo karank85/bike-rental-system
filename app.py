@@ -145,9 +145,14 @@ def login():
     return render_template('login.html')
 
 # Delete a certain bike from the database
-@app.route('/delete-bicycle/<int:id>/', methods=['POST'])
+@app.route('/delete-bicycle/<int:id>/')
 def delete_bike(id):
-    pass
+    cur = mysql.connection.cursor()
+    query_statement = f"DELETE FROM bicycle WHERE bike_id = {id}"
+    cur.execute(query_statement)
+    mysql.connection.commit()
+    flash("Bicycle has been deleted", 'success')
+    return redirect('/admin/')
 
 # List all bicycles
 @app.route('/admin/', methods=['GET'])
