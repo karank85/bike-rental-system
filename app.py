@@ -216,6 +216,24 @@ def delete_bike(id):
     flash("Bicycle has been deleted", 'success')
     return redirect('/admin/')
 
+# Add a new bicycle
+@app.route('/admin/bicycle/create/', methods=['GET', 'POST'])
+def create_bicycle():
+    if request.method == 'POST':
+        bike_form = request.form
+        bike_type = bike_form['bike_type']
+        bike_building = bike_form['bike_building']
+        cur = mysql.connection.cursor()
+        query_statement = f"INSERT INTO bicycle(bike_types, building_name) VALUES ('{bike_type}', '{bike_building}')"
+        cur.execute(query_statement)
+        mysql.connection.commit()
+        cur.close()
+        flash("Added new bike", 'success')
+        return redirect('/admin/')
+    else:
+        return render_template('create-bike.html')
+
+
 # List all bicycles
 @app.route('/admin/', methods=['GET'])
 def all_bikes():
