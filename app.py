@@ -116,7 +116,12 @@ def register():
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
-        return render_template('login.html')
+        try:
+            username = session['studentID']
+            flash('You are already logged in', 'danger')
+            return redirect('/')
+        except:
+            return render_template('login.html')
     elif request.method == 'POST':
         loginForm = request.form
         studentID = loginForm['studentID']
