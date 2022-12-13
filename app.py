@@ -81,7 +81,6 @@ def bicycle(id):
             return redirect('/')  
     return 'Cycle not found'
 
-
 @app.route('/register/', methods=['GET', 'POST'])
 def register():
     if request.method == 'GET':
